@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://abhy1522:changeme12345@keybounce.abkmpmd.mongodb.net/keybounce?retryWrites=true&w=majority'); //config
+mongoose.connect('mongodb+srv://abhy1522:changeme12345@keybounce.abkmpmd.mongodb.net/keybounce'); //config
+
 const userRoute = require('./routes/userRoute')
 const adminRoute = require('./routes/adminRoute')
 const express = require('express');    
