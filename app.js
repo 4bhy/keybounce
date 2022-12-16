@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1:27017/eshoppe'); //config
+mongoose.connect('mongodb+srv://abhy1522:changeme12345@keybounce.abkmpmd.mongodb.net/keybounce/eshoppe?retryWrites=true&w=majority'); //config
 const userRoute = require('./routes/userRoute')
 const adminRoute = require('./routes/adminRoute')
 const express = require('express');    
