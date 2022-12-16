@@ -14,8 +14,6 @@ const pdf=require('html-pdf')
 const fs=require('fs')
 const path = require('path')
 
-let isLoggedin;
-isLoggedin = false
 
 var userSession;
 let randomOTP, USERID
@@ -76,10 +74,10 @@ const loadIndex = async (req, res) => {
             ]
         })
 
-        res.render('index', { product: productpass, isLoggedin })
+        res.render('index', { product: productpass, isLoggedin:req.session.userEmail })
     }else {
        const productpass = await Product.find()
-        res.render('index', { product: productpass, isLoggedin })
+        res.render('index', { product: productpass, isLoggedin:req.session.userEmail })
     }
 
 }
@@ -88,13 +86,13 @@ const loadShop = async (req, res) => {
     const productData = await Product.find()
     const categories = await Category.find()
  
-    res.render('shop', { product: productData, isLoggedin, category: categories })
+    res.render('shop', { product: productData, isLoggedin:req.session.userEmail, category: categories })
 
 }
 
 const loadDetail = (req, res) => {
-    isLoggedin = true
-    res.render('detail', { isLoggedin })
+
+    res.render('detail', { isLoggedin:req.session.userEmail })
 }
 
 const loadRegister = async (req, res) => {
@@ -118,9 +116,8 @@ const postLogin = async (req, res) => {
                 res.render('newerlogin', { message: "Please verify your mail" });
             } else {
                 req.session.userID = userData._id
-                userSession = req.session
-                userSession.userEmail = userData.email
-                isLoggedin = true;
+                // userSession = req.session
+                req.session.userEmail = userData.email
                 res.redirect('/');
             }
         } else {
@@ -178,7 +175,7 @@ const otpValidation = async (req, res) => {
             validatedUser.isVerified = 1
             const test = await validatedUser.save();
             if (test) {
-                isLoggedin = true
+              
                 res.redirect('/login')
             } else {
                 res.render('otp', { message: "Incorrect OTP" })
@@ -214,7 +211,6 @@ const loadHome = (req, res) => {
 
 const userLogout = (req, res) => {
     try {
-        isLoggedin = false;
         req.session.userEmail = ''
         req.session.userID =
             res.redirect('/')
@@ -279,7 +275,7 @@ const viewDetails = async (req, res) => {
     const productData = await Product.findById({ _id: productId })
     const productList = await Product.find()
     const categories = await Category.find()
-    res.render('detail', { product: productData, isLoggedin, productCarousel: productList, category:categories })
+    res.render('detail', { product: productData, isLoggedin:req.session.userEmail, productCarousel: productList, category:categories })
 }
 
 const loadCart = async (req, res) => {
@@ -297,26 +293,26 @@ const loadCart = async (req, res) => {
         
         if (userSession.couponTotal < productData.totalprice && userSession.couponTotal != 0 && userSession.coupon.used == 1) {
             userSession.coupon.used = 0;
-            res.render('cart', { isLoggedin, cart: cartFetch.product, totalPrice: userSession.couponTotal, category: categories })
+            res.render('cart', { isLoggedin:req.session.userEmail, cart: cartFetch.product, totalPrice: userSession.couponTotal, category: categories })
         } else if (userSession.couponTotal == 0) {
 
 
             userSession.couponTotal = productData.totalprice;
 
 
-            res.render('cart', { isLoggedin, cart: cartFetch.product, totalPrice: userSession.couponTotal, category: categories })
+            res.render('cart', { isLoggedin:req.session.userEmail, cart: cartFetch.product, totalPrice: userSession.couponTotal, category: categories })
         } else {
 
 
             userSession.couponTotal = productData.totalprice;
 
-            res.render('cart', { cart: cartFetch.product, totalPrice: userSession.couponTotal, isLoggedin, category: categories })
+            res.render('cart', { cart: cartFetch.product, totalPrice: userSession.couponTotal, isLoggedin:req.session.userEmail, category: categories })
 
         }
 
 
     } else {
-        res.render('cart', { cart: '', totalPrice: '', isLoggedin, category: categories })
+        res.render('cart', { cart: '', totalPrice: '', isLoggedin:req.session.userEmail, category: categories })
     }
 
 }
@@ -340,7 +336,7 @@ const checkout = async (req, res) => {
     const forTotal = await Cart.findOne({ userId:  req.session.userID })
     const userData = await users.findOne({ _id: req.session.userID })
     const categories = await Category.find()
-    res.render('checkout', { cart: cartData.product, totalPrice: userSession.couponTotal, isLoggedin, user: userData, category:categories })
+    res.render('checkout', { cart: cartData.product, totalPrice: userSession.couponTotal, isLoggedin:req.session.userEmail, user: userData, category:categories })
 }
 
 
@@ -391,7 +387,7 @@ const ordersuccesful = async (req, res) => {
     const categories = await Category.find()
     await Cart.findOneAndDelete({ userId: req.session.userID})
 
-    res.render('orderplaced', { cart: orderData.product, totalprice:userSession.couponTotal, isLoggedin, category:categories })
+    res.render('orderPlaced', { cart: orderData.product, totalprice:userSession.couponTotal, isLoggedin:req.session.userEmail, category:categories })
 }
 
 const dashboard = async (req, res) => {
@@ -424,12 +420,12 @@ const addCategory = async (req, res) => {
 const selCategories = async (req, res) => {
     const productData = await Product.find({ category: req.query.id })
     const categories = await Category.find()
-    res.render('shop', { product: productData, isLoggedin, category: categories })
+    res.render('shop', { product: productData, isLoggedin:req.session.userEmail, category: categories })
 }
 
 const loadContact= async(req,res)=>{
     const categories = await Category.find()
-    res.render('contact', {isLoggedin,category: categories })
+    res.render('contact', {isLoggedin:req.session.userEmail,category: categories })
 }
 
 const addToWishlist = async (req, res) => {
@@ -479,9 +475,9 @@ const loadWishlist = async (req, res) => {
     const userList = await Wishlist.findOne({ userId:  req.session.userID }).populate('product.productId')
     try {
         if (userList) {
-            res.render('wishlist', { list: userList.product, isLoggedin, category:categories })
+            res.render('wishlist', { list: userList.product, isLoggedin:req.session.userEmail, category:categories })
         } else {
-            res.render('wishlist', {list: '', isLoggedin, category:'' })
+            res.render('wishlist', {list: '', isLoggedin:req.session.userEmail, category:'' })
         }
     } catch (error) {
         console.log(error.message);
