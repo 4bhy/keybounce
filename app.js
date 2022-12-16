@@ -6,7 +6,7 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const paypal= require('paypal-rest-sdk')
-const dotenv = require('dotenv');
+const dotenv = require('dotenv'); 
 const app = express();
 
 dotenv.config();
@@ -14,7 +14,7 @@ dotenv.config();
 const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(sessions({
-    secret: process.env.SECRET_KEY,
+    secret: thisismysecrctekey,
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false
@@ -44,6 +44,6 @@ app.use(function (req, res) {
     res.status(404).render("users/404.ejs");
   });
 
-app.listen(process.env.PORT, function () {
+app.listen(3000, function () {
     console.log('Server Running');
 })
