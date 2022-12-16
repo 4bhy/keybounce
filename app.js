@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://abhy1522:changeme12345@keybounce.abkmpmd.mongodb.net/keybounce/eshoppe?retryWrites=true&w=majority'); //config
+mongoose.connect('mongodb+srv://abhy1522:changeme12345@keybounce.abkmpmd.mongodb.net/keybounce/?retryWrites=true&w=majority'); //config
 const userRoute = require('./routes/userRoute')
 const adminRoute = require('./routes/adminRoute')
 const express = require('express');    
@@ -14,7 +14,7 @@ dotenv.config();
 const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(sessions({
-    secret: thisismysecrctekey,
+    secret: 'thisismysecrctekey',
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false
