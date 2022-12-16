@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Keybounce</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    
+
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="/" class="text-decoration-none">
+                    <h4 class="m-0 ml-4 display-5 font-weight-semi-bold"><span
+                            class="text-primary font-weight-100 border px-3 mr-1"><i class="fas fa-stream text-new pr-2 "></i>Keybounce</span></h4>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for products" name="search">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <button style="color:#000000; border-color:#fff;background-color:transparent;border: none;"class="fa fa-search" type="submit" value="search"></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+                <a href="/wishlist" class="btn border">
+                    <i class="fas fa-heart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+                <a href="/cart" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5 mt-2">
+        <div class="row px-xl-5 col-lg-12">
+            <div class="col-lg-12 ml-4">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h3 class="m-0 display-5 font-weight-semi-bold"><span
+                                class="text-primary font-weight-bold border px-3 mr-1">Keybounce</span></h3>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="/" class="nav-item nav-link active">HOME</a>
+                            <a href="/shop" class="nav-item nav-link">STORE</a>
+                            <a href="/contact" class="nav-item nav-link">CONTACT</a>
+                            <!-- <a href="contact.html" class="nav-item nav-link">CONTACT</a> -->
+                        </div>
+                        <div>
+                            <% if(isLoggedin) { %>
+                                <%- include('../partials/userHeader') %>
+                                    <% }else { %>
+                                        <%- include('../partials/normalHeader') %>
+                                            <% } %>
+                        </div>
+                    </div>
+                </nav>
+                <div id="header-carousel" class="carousel slide" data-ride="carousel" class="col-lg-12">
+                    <div class="carousel-inner col-lg-12 col-sm-12 col-12 col-md-12">
+                        <div class="carousel-item active" style="height: 470px;">
+                            <img class="img-fluid" src="img/carousel-1.webp" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
+                                        Order</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Keychron K1</h3>
+                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="height: 470px;">
+                            <img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
+                                        Order</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Keychron V1</h3>
+                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Featured Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-3 pb-1">
+                <div class="d-flex align-items-center mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-3 pb-1">
+                <div class="d-flex align-items-center mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-3 pb-1">
+                <div class="d-flex align-items-center mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-3 pb-1">
+                <div class="d-flex align-items-center mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Featured End -->
+
+
+
+    <!-- Categories Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3 mb-6">
+            <div class="col-lg-4 col-md-6 col-6 pb-1">
+                <div class="cat-item d-flex flex-column mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a class="cat-img position-relative overflow-hidden mb-3 shadow">
+                        <img class="img-fluid" src="img/cat-1.webp" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Keyboards</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-6 pb-1">
+                <div class="cat-item d-flex flex-column mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a class="cat-img position-relative overflow-hidden mb-3 shadow">
+                        <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Keycaps</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-6 pb-1">
+                <div class="cat-item d-flex flex-column mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a class="cat-img position-relative overflow-hidden mb-3 shadow">
+                        <img class="img-fluid" src="img/cat-3.webp" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Switches</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-6 pb-1">
+                <div class="cat-item d-flex flex-column mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a class="cat-img position-relative overflow-hidden mb-3 shadow">
+                        <img class="img-fluid" src="img/cat-4.webp" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Mice</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-6 pb-1">
+                <div class="cat-item d-flex flex-column mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a class="cat-img position-relative overflow-hidden mb-3 shadow">
+                        <img class="img-fluid" src="img/cat-5.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Group Buys</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-6 pb-1">
+                <div class="cat-item d-flex flex-column mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a class="cat-img position-relative overflow-hidden mb-3 shadow">
+                        <img class="img-fluid" src="img/cat-6.webp" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">ATX Towers</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Categories End -->
+    <!-- <div class="col-lg-12 col-md-6 pb-1 d-flex align-items-center">
+        <div class="d-flex flex-column mb-4" style="padding: 30px;">
+            <a href="" class="cat-img position-relative overflow-hidden mb-3 shadow">
+                <img class="img-fluid" src="img/gallery.jpg" alt="">
+            </a>
+        </div>
+        <div class="d-flex flex-column mb-4" style="padding: 70px;">
+            <a href="" class="cat-img position-relative overflow-hidden mb-3 shadow">
+                <img class="img-fluid" src="img/gallery-2.jpg" alt="">
+            </a>
+        </div>
+    </div> -->
+
+
+    <!-- Offer Start -->
+    <div class="container-fluid offer pt-5">
+        <div class="row px-xl-5">
+            <div class="col-md-6 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5 shadow2">
+                    <img src="img/offer-1.png" alt="">
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">Extras now in stock!</h5>
+                        <h4 class="mb-4 font-weight-semi-bold">Tenkeyless Collections</h4>
+                        <a href="/shop" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5 shadow2">
+                    <img src="img/offer-2.png" alt="" >
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">Get your game on.</h5>
+                        <h4 class="mb-4 font-weight-semi-bold">The best from Logitech</h4>
+                        <a href="/shop" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Offer End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Hot Picks</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            <% if(product.length>0) {
+                for(let i=1;i<=product.length;i++) { %>
+                    <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                        <div class="card product-item border-0 mb-4">
+                            <div
+                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <% if(product[i-1].image) { %>
+                                  <a href="/viewDetails?id=<%= product[i-1]._id %>"><img class="img-fluid w-100" src="./productImages/<%= product[i-1].image %>"
+                                        alt="image" width="100vw" height="100vh"></a>
+                                    <% } %>
+                            </div>
+                            <div class="card-body text-center p-0 pt-4 pb-3">
+                                <h6 class="text-truncate mb-3">
+                                    <%= product[i-1].pname %>
+                                </h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6>₹
+                                        <%= product[i-1].price%>
+                                    </h6>
+                                    <h6 class="text-muted ml-2"><del>
+                                        ₹<%= product[i-1].price+(product[i-1].price*20/100) %>
+                                        </del></h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light">
+                                <a href="/add-wishlist?id=<%= product[i-1]._id %>" class="btn btn-sm text-dark p-0"><i
+                                        class="fa fa-heart text-primary mr-1" aria-hidden="true"></i>Wishlist It</a>
+                                <a href="/addtoCart?id=<%= product[i-1]._id %>" class="btn btn-sm text-dark p-0"><i
+                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } } %>
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel">
+                    <div class="vendor-item p-4">
+                        <img src="img/vendor-1.png" alt="">
+                    </div>
+                    <div class="vendor-item p-4">
+                        <img src="img/vendor-2.png" alt="">
+                    </div>
+                    <div class="vendor-item p-4">
+                        <img src="img/vendor-3.png" alt="">
+                    </div>
+                    <div class="vendor-item p-4">
+                        <img src="img/vendor-4.png" alt="">
+                    </div>
+                    <div class="vendor-item p-4">
+                        <img src="img/vendor-5.png" alt="">
+                    </div>
+                    <div class="vendor-item p-5">
+                        <img src="img/vendor-6.png" alt="">
+                    </div>
+                    <!-- <div class="vendor-item p-4">
+                        <img src="img/vendor-7.png" alt="">
+                    </div>
+                    <div class="vendor-item p-4">
+                        <img src="img/vendor-8.jpg" alt="">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+
+<%- include('../partials/userFooter') %>

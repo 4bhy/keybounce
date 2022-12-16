@@ -1,0 +1,85 @@
+<%- include('../partials/adminHeader') %>
+    <!-- Navbar End -->
+    <div class="container p-1">
+        <form action="/admin/editProduct" method="post" class="my-auto" style="height: 90vh;"
+            enctype="multipart/form-data">
+            <h2 class="align-items-center" style="color: rgb(127, 6, 26);"></h2>
+            <!-- <div class = "form-row"> -->
+            <div class="form-group col-md-6">
+                <label for="pname"></label>
+                <input name="pname" type="text" class=" form-control" placeholder="Product Name"
+                    value="<%= product.pname %>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4"></label>
+                <input name="price" type="text" class="form-control" placeholder="Product Price"
+                    value="<%=product.price%>">
+            </div>
+            <!-- </div> -->
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="pdescription" type="text" class=" form-control" placeholder="Primary Description"
+                    value="<%=product.pdescription %>">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="sdescription" type="text" class=" form-control" placeholder="Secondary Description"
+                    value="<%=product.sdescription%>">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="information" type="text" class=" form-control" placeholder="Information"
+                    value="<%=product.information%>">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="type" type="text" class=" form-control" placeholder="Product Type"
+                    value="<%=product.type%>">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="manufacturer" type="text" class=" form-control" placeholder="Manufacturer"
+                    value="<%=product.manufacturer%>">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="color" type="text" class=" form-control" placeholder="Color" value="<%=product.color%>">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="image" type="file" class=" form-control" placeholder="Product Image">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4"></label>
+                <input name="quantity" type="text" class=" form-control" placeholder="Product Quantity"
+                    value="<%product.manufacturer%>">
+            </div>
+            <input type="hidden" name="id" value="<%= product._id %>">
+            <button type="submit" class="btn btn-primary ">Add Product</button>
+        </form>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+        </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+        </script>
+
+    </body>
+
+    </html>

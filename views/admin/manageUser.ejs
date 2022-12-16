@@ -1,0 +1,81 @@
+<%- include('../partials/adminHeader') %>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70px">
+            <h3 class="font-weight-semi-bold text-uppercase mb-3">User Management</h3>
+            <div class="d-inline-flex">
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Cart Start -->
+    <div class="container-fluid pt-1">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <% if(users.length>0) {
+                            for(let i=1;i<=users.length;i++) { %>
+                                <tr>
+                                    <td>
+                                        <%= i %>
+                                    </td>
+                                    <td>
+                                        <%=users[i-1].fname %>
+                                            <%= users[i-1].lname %>
+                                    </td>
+                                    <td>
+                                        <%=users[i-1].email %>
+                                    </td>
+                                    <td>
+                                        <% if(users[i-1].isVerified===0) {%>
+                                            <p>Blocked</p>
+                                            <% } else { %>
+                                                <p>Active</p>
+                                                <% } %>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/block-user?id=<%= users[i-1]._id %> ">
+                                            <% if(users[i-1].isVerified) { %>
+                                                Block
+                                        </a>
+                                        <% } else { %>
+                                            <a href="/admin/block-user?id=<%= users[i-1]._id %> ">Unblock</a>
+                                            <% } %>
+                                    </td>
+                                </tr>
+                                <% } %>
+                                    <% } %>
+                    </tbody>
+                </table>
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+                <!-- JavaScript Libraries -->
+                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+                <script src="lib/easing/easing.min.js"></script>
+                <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+                <!-- Contact Javascript File -->
+                <script src="mail/jqBootstrapValidation.min.js"></script>
+                <script src="mail/contact.js"></script>
+
+                <!-- Template Javascript -->
+                <script src="js/main.js"></script>
+                </body>
+
+                </html>

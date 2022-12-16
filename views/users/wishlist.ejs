@@ -1,0 +1,97 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/innerNew') %>
+        <% }else { %>
+            <%- include('../partials/innerNormal') %>
+                <% } %>
+                <% if(isLoggedin){ %>
+                <% if(list.length>0) { %>
+                    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+                <script  src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+                <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+                    <section class="h-100 h-custom">
+                        <div class="container h-100 py-5">
+                            <div class="row d-flex justify-content-center align-items-center h-100">
+                                <div class="col">
+
+                                    <div class="table-responsive">
+                                        <table class="table" id="myExample">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="h5">Wishlist</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col">Price</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            
+                                                  <%  for(let i=1;i<=list.length; i++) { %>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="./productImages/<%=list[i-1].productId.image %>"
+                                                                class="img-fluid rounded-3" style="width: 120px;"
+                                                                alt="Book">
+                                                            <div class="flex-column ml-4">
+                                                                <p class="mb-2"> <%=list[i-1].productId.pname %></p>
+                                                                <p class="mb-0"></p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <td class="align-middle">
+                                                        <p class="mb-0" style="font-weight: 500;"><%=list[i-1].productId.category %></p>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <p class="mb-0" style="font-weight: 500;">₹ <%=list[i-1].productId.price %></p>
+                                                    </td>
+                                                    <td class="align-middle border-bottom-0">
+                                                        <form action="/move-to-cart?id=<%=list[i-1].productId._id %>" method="post">
+                                                        <button type="submit" class="btn btn-info">Move to Bag</button>
+                                                    </form>
+                                                    </td>
+                                                    <td class="align-middle text-center"><form action="/delete-wishlist?id=<%=list[i-1]._id %> " method="post"><button id="cartDelete" class="btn btn-info" type="submit">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i></button></form></td>
+                                                </tr>
+                                            </tbody>
+                                            <% } %>
+                                        </table>
+                                        <script>
+                                            $(document).ready(function() {
+                                            $('#myExample').DataTable( {
+                                                dom: 'Bfrtip',
+                                                buttons: [
+                                                    'copy', 'csv', 'excel', 'pdf', 'print'
+                                                ]
+                                            } );
+                                        } )
+                                            </script>
+                                         
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <%- include('../partials/userFooter') %>
+                <% }else { %>
+                    <div class="text-center mt-3">
+    <img src="https://cosanostraa.com/img/empty_cart.png">
+    </div>
+    <div class="text-center mt-5">
+        <button type="button" class="btn-primary"><a style="text-decoration:none; color: white;" href="/shop">Add Some!!</a></button>
+        </div>
+        <%- include('../partials/userFooter') %>
+<% } %>
+<% } else { %>
+    <div class="text-center mt-3">
+        <img src="https://cosanostraa.com/img/empty_cart.png">
+        </div>
+        <div class="text-center mt-5">
+            <button type="button" class="btn-primary"><a style="text-decoration:none; color: white;" href="/login">Sign In!!</a></button>
+            </div>
+            <%- include('../partials/userFooter') %>
+            <% } %>

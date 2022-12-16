@@ -1,0 +1,31 @@
+
+<div class="navbar-nav ml-auto py-0">
+    <a href="/dashboard" class="nav-item nav-link">MY ACCOUNT</i></a>
+    <!-- <button class="nav-item nav-link" id="logout">LOGOUT</button> -->
+    <a href="/logout" id="logout" class="nav-item nav-link">LOGOUT</a>
+
+<script>
+
+$("#logout").on("click", function(e) {
+    e.preventDefault()
+    var self = $(this)
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      text: "",
+      icon: 'Confirm Logout',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        location.href = self.attr("href")
+      }
+    })
+
+  })
+
+</script>
+
+</div>
