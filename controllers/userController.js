@@ -60,8 +60,8 @@ const loadIndex = async (req, res) => {
 
     }else{
         console.log(coupon);
-        userSession.coupon = coupon;
-        userSession.couponTotal = couponTotal;
+        req.session.coupon = coupon;
+        req.session.couponTotal = couponTotal;
     }
     if (req.query.search) {
        const search = req.query.search;
@@ -291,22 +291,22 @@ const loadCart = async (req, res) => {
         productData.totalprice = totalPrice
         await productData.save()
         
-        if (userSession.couponTotal < productData.totalprice && userSession.couponTotal != 0 && userSession.coupon.used == 1) {
-            userSession.coupon.used = 0;
-            res.render('cart', { isLoggedin:req.session.userEmail, cart: cartFetch.product, totalPrice: userSession.couponTotal, category: categories })
-        } else if (userSession.couponTotal == 0) {
+        if (req.session.couponTotal < productData.totalprice && req.session.couponTotal != 0 && req.session.coupon.used == 1) {
+            req.session.coupon.used = 0;
+            res.render('cart', { isLoggedin:req.session.userEmail, cart: cartFetch.product, totalPrice: req.session.couponTotal, category: categories })
+        } else if (req.session.couponTotal == 0) {
 
 
-            userSession.couponTotal = productData.totalprice;
+            req.session.couponTotal = productData.totalprice;
 
 
-            res.render('cart', { isLoggedin:req.session.userEmail, cart: cartFetch.product, totalPrice: userSession.couponTotal, category: categories })
+            res.render('cart', { isLoggedin:req.session.userEmail, cart: cartFetch.product, totalPrice: req.session.couponTotal, category: categories })
         } else {
 
 
-            userSession.couponTotal = productData.totalprice;
+            req.session.couponTotal = productData.totalprice;
 
-            res.render('cart', { cart: cartFetch.product, totalPrice: userSession.couponTotal, isLoggedin:req.session.userEmail, category: categories })
+            res.render('cart', { cart: cartFetch.product, totalPrice: req.session.couponTotal, isLoggedin:req.session.userEmail, category: categories })
 
         }
 
@@ -336,7 +336,7 @@ const checkout = async (req, res) => {
     const forTotal = await Cart.findOne({ userId:  req.session.userID })
     const userData = await users.findOne({ _id: req.session.userID })
     const categories = await Category.find()
-    res.render('checkout', { cart: cartData.product, totalPrice: userSession.couponTotal, isLoggedin:req.session.userEmail, user: userData, category:categories })
+    res.render('checkout', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin:req.session.userEmail, user: userData, category:categories })
 }
 
 
@@ -357,11 +357,11 @@ const checkoutFinal = async (req, res) => {
         zip: req.body.zip,
         payment: req.body.payment,
         product: cartData.product,
-        totalprice: userSession.couponTotal
+        totalprice: req.session.couponTotal
 
     })
     await orders.save()
-    const userCoupon= await Coupon.updateOne({name:userSession.coupon.name}, {$push:{usedBy:req.session.userID}})
+    const userCoupon= await Coupon.updateOne({name:req.session.coupon.name}, {$push:{usedBy:req.session.userID}})
 
     if (req.body.payment == 'cod') {
         await Order.findOneAndUpdate({ userId: req.session.userID }, { status: 'build' })
@@ -377,7 +377,7 @@ const checkoutFinal = async (req, res) => {
 
 const paypal = async (req, res) => {
     const orderData = await Order.findOne({ userId:  req.session.userID })
-    res.render('paypal', { total: userSession.couponTotal })
+    res.render('paypal', { total: req.session.couponTotal })
 }
 
 const ordersuccesful = async (req, res) => {
@@ -387,7 +387,7 @@ const ordersuccesful = async (req, res) => {
     const categories = await Category.find()
     await Cart.findOneAndDelete({ userId: req.session.userID})
 
-    res.render('orderPlaced', { cart: orderData.product, totalprice:userSession.couponTotal, isLoggedin:req.session.userEmail, category:categories })
+    res.render('orderPlaced', { cart: orderData.product, totalprice:req.session.couponTotal, isLoggedin:req.session.userEmail, category:categories })
 }
 
 const dashboard = async (req, res) => {
@@ -585,26 +585,26 @@ const applyCoupon = async(req,res)=>{
        
         couponApplied = req.body.coupon;
 
-        if(userSession.userID){
-            userData = await users.findById({_id:userSession.userID});
+        if(req.session.userID){
+            userData = await users.findById({_id:req.session.userID});
             offerData = await Coupon.findOne({coupon:couponApplied});
             console.log(offerData);
             if(offerData){
-                if(offerData.usedBy != userSession.userID){
+                if(offerData.usedBy != req.session.userID){
 
                   
-                    userSession.coupon.offer = offerData.offer; 
-                    console.log(userSession);
-                    userSession.coupon.name = offerData.name;
+                    req.session.coupon.offer = offerData.offer; 
+                  
+                    req.session.coupon.name = offerData.name;
 
-                    userSession.coupon.used = 1;
-                    fetchCart = await Cart.findOne({userId:userSession.userID});
-                    const updatedPrice = fetchCart.totalprice-((fetchCart.totalprice*userSession.coupon.offer)/100);
-                    userSession.couponTotal = updatedPrice;
-                    console.log(userSession);
+                    req.session.coupon.used = 1;
+                    fetchCart = await Cart.findOne({userId:req.session.userID});
+                    const updatedPrice = fetchCart.totalprice-((fetchCart.totalprice*req.session.coupon.offer)/100);
+                    req.session.couponTotal = updatedPrice;
+                   
                     res.redirect('/cart')
                 }else{
-                    userSession.coupon.usedBy = true;
+                    req.session.coupon.usedBy = true;
                     res.redirect('/cart');
                 }
             }else{
