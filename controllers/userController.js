@@ -222,8 +222,10 @@ const userLogout = (req, res) => {
 
 
 const addToCart = async (req, res) => {
+    
     userSession = req.session;
     const p_id = req.query.id;
+    if(req.session.userEmail){
 
     const isExisting = await Cart.findOne({ userId: req.session.userID })
     const productData = await Product.findById({ _id: p_id })
@@ -232,11 +234,13 @@ const addToCart = async (req, res) => {
         if (smProduct != null) {
             const incCart = await Cart.updateOne({ userId:  req.session.userID, 'product.productId': p_id },
                 { $inc: { 'product.$.quantity': 1 } })
-            res.redirect('/')
+            // res.redirect('/')
+            res.json({ status: true });
         } else {
             const updateCart = await Cart.updateMany({ userId:  req.session.userID },
                 { $push: { product: { "productId": p_id, "quantity": 1, "price": productData.price } } })
-            res.redirect('/')
+            // res.redirect('/')
+            res.json({ status: true });
         }
 
     } else {
@@ -253,10 +257,16 @@ const addToCart = async (req, res) => {
 
         })
         const cartData = await cart.save();
-        res.redirect('/')
+        // res.redirect('/')
+        res.json({ status: true });
 
     }
+}else {
+    res.json({ status: false });
 }
+}
+    
+
 
 
 const deleteCart = async (req, res) => {
@@ -429,6 +439,9 @@ const loadContact= async(req,res)=>{
 }
 
 const addToWishlist = async (req, res) => {
+    if(req.session.userEmail){
+
+   
     userSession = req.session;
     const p_id = req.query.id;
 
@@ -442,12 +455,14 @@ const addToWishlist = async (req, res) => {
          
             const incCart = await Wishlist.updateOne({ userId:  req.session.userID, 'product.productId': p_id },
                 { $inc: { 'product.$.quantity': 1 } })
-            res.redirect('/')
+            // res.redirect('/')
+            res.json({ status: true });
         } else {
            
             const updateCart = await Wishlist.updateMany({ userId:  req.session.userID },
                 { $push: { product: { "productId": p_id, "quantity": 1, "price": productData.price } } })
-            res.redirect('/')
+            // res.redirect('/')
+            res.json({ status: true });
         }
 
     } else {
@@ -464,9 +479,11 @@ const addToWishlist = async (req, res) => {
 
         })
         const wishlistData = await wishlist.save();
-        res.redirect('/')
+        // res.redirect('/')
+        res.json({ status: true });
 
     }
+}
 }
 
 const loadWishlist = async (req, res) => {

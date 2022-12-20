@@ -78,6 +78,75 @@
     </div>
     <!-- Footer End -->
 
+    <script>
+   
+        function addToCart(productId) {
+        $.ajax({
+          url: '/addtoCart?id=' + productId,
+          method: 'GET',
+          success: function(response) {
+            if (response.status) {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Added to cart',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              let count = $('#cart-count').html();
+              count = parseInt(count) + 1;
+              $('#cart-count').html(count);
+            } else {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Please login',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              let count = $('#cart-count').html();
+              count = parseInt(count) + 1;
+              $('#cart-count').html(count);
+            }
+          },
+        });
+      }
+     </script>
+     
+     <script>
+        
+        function addToWishlist(productId) {
+        $.ajax({
+          url: '/add-wishlist?id=' + productId,
+          method: 'GET',
+          success: function(response) {
+            if (response.status) {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Added to wishlist!',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              let count = $('#cart-count').html();
+              count = parseInt(count) + 1;
+              $('#cart-count').html(count);
+            } else {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Please login!',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              let count = $('#cart-count').html();
+              count = parseInt(count) + 1;
+              $('#cart-count').html(count);
+            }
+          },
+        });
+      }
+     </script>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>

@@ -309,9 +309,9 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light">
-                                <a href="/add-wishlist?id=<%= product[i-1]._id %>" class="btn btn-sm text-dark p-0"><i
+                                <a onclick="addToWishlist('<%= product[i-1]._id %>')" class="btn btn-sm text-dark p-0"><i
                                         class="fa fa-heart text-primary mr-1" aria-hidden="true"></i>Wishlist It</a>
-                                <a href="/addtoCart?id=<%= product[i-1]._id %>" class="btn btn-sm text-dark p-0"><i
+                                <a onclick="addToCart('<%= product[i-1]._id %>')"  class="btn btn-sm text-dark p-0"><i
                                         class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                             </div>
                         </div>
@@ -357,5 +357,74 @@
         </div>
     </div>
     <!-- Vendor End -->
+<script>
+   
+    function addToCart(productId) {
+    $.ajax({
+      url: '/addtoCart?id=' + productId,
+      method: 'GET',
+      success: function(response) {
+        if (response.status) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Added to cart',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          let count = $('#cart-count').html();
+          count = parseInt(count) + 1;
+          $('#cart-count').html(count);
+        } else if(response.status==false) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Please login',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          let count = $('#cart-count').html();
+          count = parseInt(count) + 1;
+          $('#cart-count').html(count);
+        }
+      },
+    });
+  }
+</script>
+
+<script>
+   
+   function addToWishlist(productId) {
+   $.ajax({
+     url: '/add-wishlist?id=' + productId,
+     method: 'GET',
+     success: function(response) {
+       if (response.status) {
+         Swal.fire({
+           position: 'top-end',
+           icon: 'success',
+           title: 'Added to wishlist!',
+           showConfirmButton: false,
+           timer: 1500,
+         });
+         let count = $('#cart-count').html();
+         count = parseInt(count) + 1;
+         $('#cart-count').html(count);
+       } else {
+         Swal.fire({
+           position: 'top-end',
+           icon: 'error',
+           title: 'Please login!',
+           showConfirmButton: false,
+           timer: 1500,
+         });
+         let count = $('#cart-count').html();
+         count = parseInt(count) + 1;
+         $('#cart-count').html(count);
+       }
+     },
+   });
+ }
+</script>
 
 <%- include('../partials/userFooter') %>

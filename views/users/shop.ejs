@@ -85,9 +85,9 @@
                                                     </div>
                                                     <div
                                                         class="card-footer d-flex justify-content-between bg-light border">
-                                                        <a href="/add-wishlist?id=<%= product[i-1]._id %>" class="btn btn-sm text-dark p-0"><i
+                                                        <a  onclick="addToWishlist('<%= product[i-1]._id %>')" class="btn btn-sm text-dark p-0"><i
                                         class="fa fa-heart text-primary mr-1" aria-hidden="true"></i>Wishlist It</a>
-                                                        <a href="/addtoCart?id=<%= product[i-1]._id %>" class="btn btn-sm text-dark p-0"><i
+                                                        <a onclick="addToCart('<%= product[i-1]._id %>')" class="btn btn-sm text-dark p-0"><i
                                                                 class="fas fa-shopping-cart text-primary mr-1"></i>Add
                                                             To Cart</a>
                                                     </div>
@@ -99,5 +99,6 @@
         
                         </div>
                     </div>
+  
                 
                     <%- include('../partials/userFooter') %>
