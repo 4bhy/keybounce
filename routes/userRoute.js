@@ -25,7 +25,7 @@ userRoute.get('/contact', userController.loadContact)
 
 userRoute.get('/cart', userController.loadCart)
 
-userRoute.get('/addtoCart', userController.addToCart)//midleware
+userRoute.get('/addtoCart',userController.isLoggedin2 ,userController.addToCart)//midleware
 
 userRoute.get('/viewDetails', userController.viewDetails)
 

@@ -225,7 +225,6 @@ const addToCart = async (req, res) => {
     
     userSession = req.session;
     const p_id = req.query.id;
-    if(req.session.userEmail){
 
     const isExisting = await Cart.findOne({ userId: req.session.userID })
     const productData = await Product.findById({ _id: p_id })
@@ -261,9 +260,7 @@ const addToCart = async (req, res) => {
         res.json({ status: true });
 
     }
-}else {
-    res.json({ status: false });
-}
+
 }
     
 
@@ -439,7 +436,7 @@ const loadContact= async(req,res)=>{
 }
 
 const addToWishlist = async (req, res) => {
-    if(req.session.userEmail){
+  
 
    
     userSession = req.session;
@@ -483,9 +480,7 @@ const addToWishlist = async (req, res) => {
         res.json({ status: true });
 
     }
-} else{
-    res.json({status:false})
-}
+
 }
 
 const loadWishlist = async (req, res) => {

@@ -365,7 +365,7 @@
       url: '/addtoCart?id=' + productId,
       method: 'GET',
       success: function(response) {
-        if (response.status) {
+        if (response.status==true) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -376,7 +376,7 @@
           let count = $('#cart-count').html();
           count = parseInt(count) + 1;
           $('#cart-count').html(count);
-        } else if(response.status==false) {
+        } else  {
           Swal.fire({
             position: 'top-end',
             icon: 'error',
@@ -400,7 +400,7 @@
      url: '/add-wishlist?id=' + productId,
      method: 'GET',
      success: function(response) {
-       if (response.status) {
+       if (response.status==true) {
          Swal.fire({
            position: 'top-end',
            icon: 'success',
@@ -411,7 +411,7 @@
          let count = $('#cart-count').html();
          count = parseInt(count) + 1;
          $('#cart-count').html(count);
-       } else if(response.status==false) {
+       } else {
          Swal.fire({
            position: 'top-end',
            icon: 'error',
