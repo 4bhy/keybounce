@@ -365,7 +365,7 @@
       url: '/addtoCart?id=' + productId,
       method: 'GET',
       success: function(response) {
-        if (response.status==true) {
+        if (response.status!=null) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -400,7 +400,7 @@
      url: '/add-wishlist?id=' + productId,
      method: 'GET',
      success: function(response) {
-       if (response.status==true) {
+       if (response.status!=null) {
          Swal.fire({
            position: 'top-end',
            icon: 'success',
