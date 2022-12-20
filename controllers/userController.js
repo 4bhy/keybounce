@@ -483,6 +483,8 @@ const addToWishlist = async (req, res) => {
         res.json({ status: true });
 
     }
+} else{
+    res.json({status:false})
 }
 }
 

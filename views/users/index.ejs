@@ -410,7 +410,7 @@
          let count = $('#cart-count').html();
          count = parseInt(count) + 1;
          $('#cart-count').html(count);
-       } else {
+       } else if(response.status==false) {
          Swal.fire({
            position: 'top-end',
            icon: 'error',
