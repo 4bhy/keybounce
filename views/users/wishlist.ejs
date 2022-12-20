@@ -23,8 +23,11 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="h5">Wishlist</th>
+                                                    <th scope="col">Name</th>
                                                     <th scope="col">Type</th>
                                                     <th scope="col">Price</th>
+                                                    <th scope="col"></th>
+
                                                     
                                                 </tr>
                                             </thead>
@@ -37,10 +40,13 @@
                                                             <img src="./productImages/<%=list[i-1].productId.image %>"
                                                                 class="img-fluid rounded-3" style="width: 120px;"
                                                                 alt="Book">
-                                                            <div class="flex-column ml-4">
-                                                                <p class="mb-2"> <%=list[i-1].productId.pname %></p>
-                                                                <p class="mb-0"></p>
-                                                            </div>
+                                                            
+                                                        </div>
+                                                    </th>
+                                                    <th class="align-middle">
+                                                
+                                                            <p class="mb-2"> <%=list[i-1].productId.pname %></p>
+                                                        
                                                         </div>
                                                     </th>
                                                     <td class="align-middle">
