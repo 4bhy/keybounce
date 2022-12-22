@@ -602,7 +602,7 @@ const applyCoupon = async(req,res)=>{
         if(req.session.userID){
             userData = await users.findById({_id:req.session.userID});
             offerData = await Coupon.findOne({coupon:couponApplied});
-            console.log(offerData);
+            
             if(offerData){
                 if(offerData.usedBy != req.session.userID){
 
