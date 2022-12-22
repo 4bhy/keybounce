@@ -247,7 +247,7 @@ const deleteCategory = async (req, res) => {
 const orderManager = async (req, res) => {
 
     try {
-        const qstatus = req.query.id
+        const qstatus = req.query.id;
         const Orders = await Order.find()
         console.log(Orders);
         res.render('orderManager', { orders: Orders, orderStatus: qstatus })
@@ -261,7 +261,7 @@ const orderManager = async (req, res) => {
 const confirmOrder = async (req, res) => {
     const id = req.query.id
     const orderData = await Order.findById({ _id: id })
-    console.log(orderData.status);
+  
     orderData.status = "confirmed"
     await orderData.save();
     res.redirect('/admin/ordermanager')
@@ -270,7 +270,7 @@ const confirmOrder = async (req, res) => {
 const deliverOrder = async (req, res) => {
     const id = req.query.id
     const orderData = await Order.findById({ _id: id })
-    console.log(orderData.status);
+  
     orderData.status = "delivered"
     await orderData.save();
     res.redirect('/admin/ordermanager')
@@ -286,7 +286,7 @@ const deleteOrder = async (req, res) => {
 
 const manageCoupon = async (req, res) => {
     const couponData = await Coupon.find()
-    console.log(couponData);
+   
     res.render('manageCoupons', { coupon: couponData })
 }
 

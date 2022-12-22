@@ -160,6 +160,7 @@
                                                             <th scope="col">Amount</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col">Details</th>
+                                                            <th scope="col">Download</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -167,7 +168,7 @@
                                                         <tr>
                                                             <td>
                                                                 <h6>
-                                                                    <%=orders[i-1].createdAt %>
+                                                                    <%=orders[i-1].createdAt.toDateString() %>
                                                                 </h6>
                                                             </td>
                                                             <td>
