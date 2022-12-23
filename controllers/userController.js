@@ -350,7 +350,7 @@ const checkout = async (req, res) => {
     if (req.query.id) {
 
         const selAddress = await Address.findById({ _id: req.query.id })
-        
+
         res.render('checkout', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin: req.session.userEmail, user: userData, category: categories, address: address, saddress: selAddress })
     } else {
 
@@ -416,7 +416,12 @@ const dashboard = async (req, res) => {
     const usersData = await users.findOne({ _id:  req.session.userID })
     const address=await Address.find({userId:req.session.userID})
     const orderData = await Order.find({ userId:  req.session.userID })
-    res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:address })
+    if(address){
+        res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:address })
+    }else {
+        res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:'' })
+    }
+  
 }
 
 const orderDetails = async (req, res) => {
