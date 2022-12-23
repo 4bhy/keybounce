@@ -416,7 +416,7 @@ const dashboard = async (req, res) => {
     const usersData = await users.findOne({ _id:  req.session.userID })
     const address=await Address.find({userId:req.session.userID})
     const orderData = await Order.find({ userId:  req.session.userID })
-    if(address){
+    if(address!=null){
         res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:address })
     }else {
         res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:null })
