@@ -419,7 +419,7 @@ const dashboard = async (req, res) => {
     if(address){
         res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:address })
     }else {
-        res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:'' })
+        res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:null })
     }
   
 }
