@@ -16,7 +16,35 @@
         </div>
     </div>
     <!-- Page Header End -->
+   <% if(address.length!=null){ %>
+    <div class="row">
+        <% for(let i=1;i<=address.length;i++){ %>
+            <div class=" ml-5 col-lg-3">
+                <div class="card card-dashboard">
+                    <div class="card-body">
+                
+                        <!-- End .card-title -->
 
+                        <p>
+                            <%=address[i-1].address%>
+                                <%=address[i-1].town%> <br>
+                                    <%=address[i-1].city%> <br>
+                                        <%=address[i-1].state%><br>
+                                            <%=address[i-1].country%><br>
+                                                <%=address[i-1].zip%><br>
+                                                    <br>
+                                                        <a href="/checkout-address?id=<%=address[i-1]._id%>">Select</a>
+                        </p>
+                    </div><!-- End .card-body -->
+                </div><!-- End .card-dashboard -->
+            </div><!-- End .col-lg-6 -->
+            <% } %>
+    </div><!-- End .row -->
+    <a class="ml-5 p-3" href="/dashboard">Add address+</a>
+    <% }else{ %>
+        <a>You haven't added any adress yet.</a><br>
+        <a href="/dashboard">Add+</a>
+        <% } %>
 
     <!-- Checkout Start -->
     <form action="/orderplaced" method="post">
@@ -28,43 +56,43 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label>First Name</label>
-                                <input class="form-control" type="text" placeholder="John" name="fname">
+                                <input class="form-control" type="text" placeholder="John" name="fname" value="<%=user.fname %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Last Name</label>
-                                <input class="form-control" type="text" placeholder="Doe" name="lname">
+                                <input class="form-control" type="text" placeholder="Doe" name="lname" value="<%=user.lname %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>E-mail</label>
-                                <input class="form-control" type="text" placeholder="example@email.com" name="email">
+                                <input class="form-control" type="text" placeholder="example@email.com" name="email" value="<%=user.email %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Mobile No</label>
-                                <input class="form-control" type="text" placeholder="+123 456 789" name="mno">
+                                <input class="form-control" type="text" placeholder="+123 456 789" name="mno" value="<%=user.mno %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Address Line 1</label>
-                                <input class="form-control" type="text" placeholder="123 Street" name="addressl1">
+                                <input class="form-control" type="text" placeholder="123 Street" name="addressl1" value="<%=saddress.address %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Address Line 2</label>
-                                <input class="form-control" type="text" placeholder="123 Street" name="addressl2">
+                                <input class="form-control" type="text" placeholder="123 Street" name="addressl2" value="<%=saddress.town %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Country</label>
-                                <input class="form-control" type="text" placeholder="123 Street" name="country">
+                                <input class="form-control" type="text" placeholder="123 Street" name="country" value="<%=saddress.country %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>City</label>
-                                <input class="form-control" type="text" placeholder="New York" name="city">
+                                <input class="form-control" type="text" placeholder="New York" name="city" value="<%=saddress.city %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>State</label>
-                                <input class="form-control" type="text" placeholder="New York" state="state">
+                                <input class="form-control" type="text" placeholder="New York" state="state" value="<%=saddress.state %>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>ZIP Code</label>
-                                <input class="form-control" type="text" placeholder="123" name="zip">
+                                <input class="form-control" type="text" placeholder="123" name="zip" value="<%=saddress.zip %>">
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="custom-control custom-checkbox">
@@ -72,13 +100,13 @@
                                     <label class="custom-control-label" for="newaccount">Create an account</label> -->
                                 </div>
                             </div>
-                            <div class="col-md-12 form-group">
+                            <!-- <div class="col-md-12 form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="shipto">
                                     <label class="custom-control-label" for="shipto" data-toggle="collapse"
-                                        data-target="#shipping-address">Ship to different address</label>
+                                        data-target="#shipping-address"></label>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="collapse mb-4" id="shipping-address">
@@ -180,13 +208,7 @@
                                     <label class="custom-control-label" for="paypal">Paypal</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" name="payment" id="directcheck"
-                                        value="razorpay">
-                                    <label class="custom-control-label" for="directcheck">Razorpay</label>
-                                </div>
-                            </div>
+                          
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" name="payment" id="banktransfer"

@@ -8,6 +8,7 @@ const fast2sms = require('fast-two-sms')
 const Category = require('../models/categoryModel')
 const Wishlist = require('../models/wishlistModel')
 const Coupon = require('../models/couponModel')
+const Address = require('../models/addressModel')
 
 const ejs=require('ejs')
 const pdf=require('html-pdf')
@@ -339,11 +340,23 @@ const updateQuantity = async (req, res) => {
 
 //try catch //env
 const checkout = async (req, res) => {
-    const cartData = await Cart.findOne({ userId:  req.session.userID }).populate('product.productId')
-    const forTotal = await Cart.findOne({ userId:  req.session.userID })
+
+    const cartData = await Cart.findOne({ userId: req.session.userID }).populate('product.productId')
+    const forTotal = await Cart.findOne({ userId: req.session.userID })
     const userData = await users.findOne({ _id: req.session.userID })
+    const address = await Address.find({ userId: req.session.userID })
     const categories = await Category.find()
-    res.render('checkout', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin:req.session.userEmail, user: userData, category:categories })
+
+    if (req.query.id) {
+
+        const selAddress = await Address.findById({ _id: req.query.id })
+        
+        res.render('checkout', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin: req.session.userEmail, user: userData, category: categories, address: address, saddress: selAddress })
+    } else {
+
+        res.render('checkout', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin: req.session.userEmail, user: userData, category: categories, address: address, saddress: '' })
+    }
+
 }
 
 
@@ -401,9 +414,9 @@ const dashboard = async (req, res) => {
     userSession = req.session;
     const userData = await users.findOne({ _id:  req.session.userID })
     const usersData = await users.findOne({ _id:  req.session.userID })
-   
+    const address=await Address.find({userId:req.session.userID})
     const orderData = await Order.find({ userId:  req.session.userID })
-    res.render('dashboard', { orders: orderData, users: usersData, user: userData })
+    res.render('dashboard', { orders: orderData, users: usersData, user: userData, address:address })
 }
 
 const orderDetails = async (req, res) => {
@@ -634,16 +647,16 @@ const applyCoupon = async(req,res)=>{
 }
 
 const addAddress = async (req, res) => {
-    userSession = req.session;
-    const userData = await users.findById({ _id: req.session.userID })
-    userData.addressl1 = req.body.addressl1
-    userData.addressl2 = req.body.addressl2
-    userData.city = req.body.city
-    userData.state = req.body.state
-    userData.country = req.body.country
-    userData.zip = req.body.zip
-
-    const saved = await userData.save()
+    const address= new Address({
+        userId:req.session.userID,
+        address:req.body.address,
+        town:req.body.town,
+        city:req.body.city,
+        state:req.body.state,
+        country:req.body.country,
+        zip:req.body.zip
+    })
+    const saved = await address.save()
     if (saved) {
         res.redirect('/dashboard')
     }
@@ -683,6 +696,16 @@ const exportToPdf = async (req, res) => {
     }
 }
 
+const selectAddress= async(req,res)=>{
+    const selAddress= await Address.findById({_id:req.query.id})
+    const cartData = await Cart.findOne({ userId:  req.session.userID }).populate('product.productId')
+    const forTotal = await Cart.findOne({ userId:  req.session.userID })
+    const userData = await users.findOne({ _id: req.session.userID })
+    const address=await Address.find({userId:req.session.userID})
+    const categories = await Category.find()
+    res.render('checkout-add', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin:req.session.userEmail, user: userData, category:categories, address:address, selAddress:selAddress })
+  
+}
 
 module.exports = {
     securePassword,
@@ -720,7 +743,8 @@ module.exports = {
     addAddress,
     exportToPdf,
     loadContact,
-    deleteWishlist
+    deleteWishlist,
+    selectAddress
    
 
 }

@@ -51,6 +51,8 @@ userRoute.get('/sel-categories', userController.selCategories)
 
 userRoute.get('/wishlist', userController.loadWishlist)
 
+userRoute.get('/checkout-address', userController.checkout)
+
 userRoute.get('/add-wishlist',userController.isLoggedin2, userController.addToWishlist)
 
 userRoute.post('/delete-wishlist', userController.deleteWishlist)
