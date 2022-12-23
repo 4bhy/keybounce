@@ -414,7 +414,7 @@ const dashboard = async (req, res) => {
     userSession = req.session;
     const userData = await users.findOne({ _id:  req.session.userID })
     const usersData = await users.findOne({ _id:  req.session.userID })
-    const address=await Address.find({userId:req.session.userID})
+    const address=await Address.findOne({userId:req.session.userID})
     const orderData = await Order.find({ userId:  req.session.userID })
     console.log(address);
     if(address!=null){
