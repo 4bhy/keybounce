@@ -53,16 +53,16 @@
                                     <input type="number" class="form-control form-control-sm bg-secondary text-center"
                                         value="<%=cart[i-1].quantity %>" name="qty" min="1" max="20">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <!-- <i class="fa fa-plus"></i> --><i class="fa fa-refresh" aria-hidden="true"></i>
+                                        <button class="btn btn-sm btn-new btn-plus">
+                                            <!-- <i class="fa fa-plus"></i> --><i class="fa fa-refresh text-new" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             </td>
                             <td class="align-middle text-center">₹ <%= cart[i-1].productId.price * cart[i-1].quantity %></td>
-                            <td class="align-middle text-center"><form action="/deleteCart?id=<%=cart[i-1]._id %> " method="post"><button id="cartDelete" class="btn btn-sm btn-primary" type="submit"><i
-                                        class="fa fa-times"></i></button></form></td>
+                            <td class="align-middle text-center"><form action="/deleteCart?id=<%=cart[i-1]._id %> " method="post"><button id="cartDelete" class="btn btn-sm btn-new" type="submit"><i
+                                        class="fa fa-times text-new"></i></button></form></td>
                         </tr>
                         <% }  %>
                     </tbody>
@@ -73,7 +73,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control p-6" name="coupon" placeholder="Coupon Code">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary">Apply Coupon</button>
+                            <button type="submit" class="btn border " style="border: 20px"><a class="" style="text-decoration: none;">Apply Coupon</a></button>
                         </div>
                     </div>
                 </form>
@@ -97,7 +97,7 @@
                             <h5 class="font-weight-bold">₹ <%=totalPrice%></h5>
                         </div>
                         <form action="/checkout" method="post">
-                            <button class="btn btn-block btn-primary my-3 py-2">Proceed To Checkout</button>
+                            <button class="btn btn-block btn-primary border my-3 py-2">Proceed To Checkout</button>
                         </form>
                         
                     </div>

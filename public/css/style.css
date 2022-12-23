@@ -2383,9 +2383,17 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #414141;
+  border-color: #2B2B2B;
   border-radius: 25px;
+}
+
+.btn-gold{
+  background-color: #ffd700;
+}
+
+.text-blue{
+ color:#6610f2
 }
 
 .btn-primary:hover {
