@@ -327,20 +327,26 @@ const loadCart = async (req, res) => {
 
 
 const updateQuantity = async (req, res) => {
-    userSession = req.session
-    const p_id = req.query.id;
-    const productData = await Cart.findOne({ userId: req.session.userID}).populate('product.productId')
-    const index = await productData.product.findIndex(cartItems => cartItems._id == p_id)
-    productData.product[index].quantity = req.body.qty
-    await productData.save()
-
-    res.redirect('/cart')
+    try {
+        userSession = req.session
+        const p_id = req.query.id;
+        const productData = await Cart.findOne({ userId: req.session.userID}).populate('product.productId')
+        const index = await productData.product.findIndex(cartItems => cartItems._id == p_id)
+        productData.product[index].quantity = req.body.qty
+        await productData.save()
+    
+        res.redirect('/cart')
+    } catch (error) {
+        res.redirect('/cart')
+    }
+  
 
 }
 
 //try catch //env
 const checkout = async (req, res) => {
-
+    try {
+        
     const cartData = await Cart.findOne({ userId: req.session.userID }).populate('product.productId')
     const forTotal = await Cart.findOne({ userId: req.session.userID })
     const userData = await users.findOne({ _id: req.session.userID })
@@ -356,12 +362,17 @@ const checkout = async (req, res) => {
 
         res.render('checkout', { cart: cartData.product, totalPrice: req.session.couponTotal, isLoggedin: req.session.userEmail, user: userData, category: categories, address: address, saddress: '' })
     }
+    } catch (error) {
+        res.redirect('/cart')
+    }
+
 
 }
 
 
 const checkoutFinal = async (req, res) => {
-    userSession = req.session
+    try {
+        userSession = req.session
     const cartData = await Cart.findOne({ userId: req.session.userID })
     const orders = new Order({
         userId:  req.session.userID,
@@ -393,21 +404,35 @@ const checkoutFinal = async (req, res) => {
         res.redirect('/paypal')
 
     }
+    } catch (error) {
+        res.redirect('/')
+    }
+    
 }
 
 const paypal = async (req, res) => {
-    const orderData = await Order.findOne({ userId:  req.session.userID })
-    res.render('paypal', { total: req.session.couponTotal })
+    try {
+        const orderData = await Order.findOne({ userId:  req.session.userID })
+        res.render('paypal', { total: req.session.couponTotal })
+    } catch (error) {
+        
+    }
+
 }
 
 const ordersuccesful = async (req, res) => {
-    await Order.findOneAndUpdate({ userId:  req.session.userID }, { status: 'build' })
-    const orderData = await Order.findOne({ userId: req.session.userID }).populate('product.productId')
-    const forTotal = await Order.findOne({ userId:  req.session.userID }) //helpers for data fetch
-    const categories = await Category.find()
-    await Cart.findOneAndDelete({ userId: req.session.userID})
-
-    res.render('orderPlaced', { cart: orderData.product, totalprice:req.session.couponTotal, isLoggedin:req.session.userEmail, category:categories })
+    try {
+        await Order.findOneAndUpdate({ userId:  req.session.userID }, { status: 'build' })
+        const orderData = await Order.findOne({ userId: req.session.userID }).populate('product.productId')
+        const forTotal = await Order.findOne({ userId:  req.session.userID }) //helpers for data fetch
+        const categories = await Category.find()
+        await Cart.findOneAndDelete({ userId: req.session.userID})
+    
+        res.render('orderPlaced', { cart: orderData.product, totalprice:req.session.couponTotal, isLoggedin:req.session.userEmail, category:categories })
+    } catch (error) {
+        res.redirect('/')
+    }
+   
 }
 
 const dashboard = async (req, res) => {
