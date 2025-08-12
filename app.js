@@ -50,11 +50,17 @@ userRoute.use('/', express.static('public/molla'))
 app.use('/', userRoute)
 app.use('/admin', adminRoute)
 
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+    res.status(200).send('ok');
+});
+
 app.use(function (req, res) {
     res.status(404).render("users/404.ejs");
   });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, function () {
-    console.log(`Server Running on port ${PORT}`);
+const HOST = '0.0.0.0';
+app.listen(PORT, HOST, function () {
+    console.log(`Server Running on http://${HOST}:${PORT}`);
 })
