@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://abhy1522:changeme12345@keybounce.abkmpmd.mongodb.net/keybounce'); //config
 const userRoute = require('./routes/userRoute')
 const adminRoute = require('./routes/adminRoute')
 const express = require('express');    
@@ -11,10 +10,21 @@ const app = express();
 
 dotenv.config();
 
+// Database connection
+const mongoUri = process.env.MONGO_URI;
+if (!mongoUri) {
+    console.warn('Warning: MONGO_URI is not set. The server may fail to start without a database connection.');
+}
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch((err) => {
+        console.error('MongoDB connection error:', err.message);
+    }); //config
+
 const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(sessions({
-    secret: 'thisismysecrctekey',
+    secret: process.env.SESSION_SECRET || 'thisismysecrctekey',
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false
@@ -44,6 +54,7 @@ app.use(function (req, res) {
     res.status(404).render("users/404.ejs");
   });
 
-app.listen(3000, function () {
-    console.log('Server Running');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
+    console.log(`Server Running on port ${PORT}`);
 })

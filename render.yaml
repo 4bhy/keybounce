@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: keybounce
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      # Set these in the Render dashboard with your real secrets/URIs
+      - key: MONGO_URI
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
